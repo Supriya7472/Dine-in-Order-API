@@ -12,6 +12,8 @@ Spring:
       hibernate:
         ddl-auto: update
 
+server:
+  port: 9090
 
 #spring.application.name=dine-in-api
 ##DATASOURCE CONFIGURATION
