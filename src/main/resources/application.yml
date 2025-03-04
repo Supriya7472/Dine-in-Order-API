@@ -3,9 +3,9 @@ Spring:
         name: dine-in-api
 
     datasource:
-        url: jdbc:mysql://localhost:3306/dine_in_db?createDatabaseIfNotExist=true
-        username: root
-        password: Supriya@104
+        url: ${MYSQL_URL}
+        username: ${MYSQL_USERNAME}
+        password: ${MYSQL_PASSWORD}
 
     jpa:
       show-sql: true
@@ -14,6 +14,9 @@ Spring:
 
 server:
   port: 9090
+
+app:
+  base-url: /api/v1
 
 #spring.application.name=dine-in-api
 ##DATASOURCE CONFIGURATION
