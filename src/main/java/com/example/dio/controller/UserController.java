@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @Tag(name = "User Controller",description = "This is a Collection of API endpoints")
+@RequestMapping("api/v1")
 public class UserController {
     private final UserService userService;
 
