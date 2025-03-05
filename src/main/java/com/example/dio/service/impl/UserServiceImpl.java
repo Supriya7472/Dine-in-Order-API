@@ -28,9 +28,13 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
-
-
+    /**
+     * Produces and returns child instance of the User based on the User role.
+     *
+     * @param role the role of the user
+     *
+     * @return User, the parent reference containing either staff or Admin instance
+     * */
     private User createUserByRole(UserRole role) {
         User user;
         switch (role){
@@ -46,8 +50,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse findUserById(long userId) {
-//        Optional<User> user=userRepository.findById(userId);
-//        return user.orElseThrow(()->new UserNotFoundByIdException("User Not Found"));
+
         return userRepository.findById(userId)
                 .map(userMapper::mapToUserResponse)
                 .orElseThrow(()->new UserNotFoundByIdException("Failed to find user, User not found by id"));
@@ -57,12 +60,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse updateUserById(UserRequest userRequest, long userId) {
-//        Optional<User> exUser=userRepository.findById(userId);
-//        if(exUser.isPresent()){
-//            this.mapToNewUser(user,exUser.get());
-//            return userRepository.save(user);
-//        }
-//        throw new UserNotFoundByIdException("Update failed, User not found");
+
         User exUser=userRepository.findById(userId)
                 .orElseThrow(()->new UserNotFoundByIdException("Failed to update user, user not found by Id"));
         userMapper.mapToNewUser(userRequest,exUser);
