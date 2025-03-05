@@ -3,7 +3,6 @@ package com.example.dio.util;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 
 public class ResponseBuilder {
     public static <T>ResponseEntity<ResponseStructure<T>> success(HttpStatus status, String message , T data){
@@ -17,6 +16,14 @@ public class ResponseBuilder {
                 .body(structure);
 
     }
+    public static <T>ResponseEntity<ResponseStructure<T>> ok(String message , T data){
+        return success(HttpStatus.OK,message,data);
+    }
+
+    public static <T>ResponseEntity<ResponseStructure<T>> created(String message , T data){
+        return success(HttpStatus.CREATED,message,data);
+    }
+
 
     public static <T> ResponseEntity<ResponseStructure<T>> success(HttpStatus status, HttpHeaders headers,String message,T data){
         ResponseStructure<T> structure=ResponseStructure.<T>builder()
@@ -40,5 +47,9 @@ public class ResponseBuilder {
         return ResponseEntity.status(status)
                 .body(error);
 
+    }
+
+    public static ResponseEntity<SimpleErrorResponse> notFound(String message){
+        return error(HttpStatus.NOT_FOUND,message);
     }
 }
