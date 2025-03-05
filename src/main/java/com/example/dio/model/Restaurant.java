@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "restaurants")
@@ -18,6 +19,9 @@ public class Restaurant {
     @Id
     @Column(name = "restaurantId")
     private long restaurantId;
+
+    @ManyToMany(mappedBy = "restaurant",fetch = FetchType.EAGER)
+    private List<Cuisine> cuisines;
 
     @Column(name="restaurantName")
     private String restaurantName;
@@ -47,7 +51,6 @@ public class Restaurant {
     @Column(name="lastModifiesAt")
     private LocalDateTime lastModifiedAt;
 
-    @ManyToMany(mappedBy = "restaurant",fetch = FetchType.EAGER)
-    private Cuisine cuisine;
+
 
 }
