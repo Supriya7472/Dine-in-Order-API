@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "cuisines")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -15,5 +17,5 @@ public class Cuisine {
     private String cuisine;
 
     @ManyToMany
-    private Restaurant restaurant;
+    private List<Restaurant> restaurants;
 }
