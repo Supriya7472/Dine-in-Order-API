@@ -23,6 +23,9 @@ public class Restaurant {
     @ManyToMany(mappedBy = "restaurant",fetch = FetchType.EAGER)
     private List<Cuisine> cuisines;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Admin admin;
+
     @Column(name="restaurantName")
     private String restaurantName;
 
