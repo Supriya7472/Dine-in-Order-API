@@ -10,33 +10,23 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel ="spring")
 public interface UserMapper {
-//    public UserResponse mapToUserResponse(User user) {
-//        return UserResponse.builder()
-//                .userId(user.getUserId())
-//                .userName(user.getUserName())
-//                .role(user.getRole())
-//                .createdAt(user.getCreatedAt())
-//                .lastModifiedAt(user.getLastModifiedAt())
-//                .build();
-//    }
 
-//    public void mapToNewUser(RegistrationRequest registrationRequest, User child) {
-//        child.setUserName(registrationRequest.getUserName());
-//        child.setPhNo(registrationRequest.getPhNo());
-//        child.setEmail(registrationRequest.getEmail());
-//        child.setRole(registrationRequest.getRole());
-//        child.setPassword(registrationRequest.getPassword());
-//    }
-
-
-
-
-//    public void mapToNewUser(UserRequest source, User target) {
-//        target.setUserName(source.getUserName());
-//        target.setEmail(source.getEmail());
-//        target.setPhNo(source.getPhNo());
-//    }
+    /**
+     * Creating an abstract method to map User data to UserResponse data
+     * where implementation is automatically provided by MapStruct
+     * */
     public UserResponse mapToUserResponse(User user);
+
+    /**
+     * Creating an abstract method to map User data to NewUser data while updation operation
+     * where implementation is automatically provided by MapStruct
+     * */
     public void mapToNewUser(RegistrationRequest registrationRequest, @MappingTarget User child);
+
+
+    /**
+     * Creating an abstract method to map old User data to new UserResponse data
+     * where implementation is automatically provided by MapStruct
+     * */
     public void mapToNewUser(UserRequest source,@MappingTarget User target);
 }
