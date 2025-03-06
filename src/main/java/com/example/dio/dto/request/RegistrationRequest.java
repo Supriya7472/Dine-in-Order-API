@@ -13,6 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RegistrationRequest {
+
     @NotNull(message = "User name cannot be null")
     @NotBlank(message = "User name cannot be blank")
     @Pattern(regexp = "^[a-zA-Z0-9_]$",message = "User name can only contain Alphabets,Numbers and Underscore")
