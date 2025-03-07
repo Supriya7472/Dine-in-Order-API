@@ -112,4 +112,8 @@ public class ResponseBuilder {
     public static ResponseEntity<SimpleErrorResponse> notFound(String message){
         return error(HttpStatus.NOT_FOUND,message);
     }
+
+    public static ResponseEntity<SimpleErrorResponse> forbidden(String message){
+        return error(HttpStatus.FORBIDDEN,message);
+    }
 }
