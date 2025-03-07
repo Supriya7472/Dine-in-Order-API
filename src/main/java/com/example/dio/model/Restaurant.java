@@ -2,6 +2,7 @@ package com.example.dio.model;
 
 import com.example.dio.enums.DietType;
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -53,8 +54,7 @@ public class Restaurant {
     @Column(name="lastModifiesAt")
     private LocalDateTime lastModifiedAt;
 
-
-    @ManyToMany(mappedBy = "restaurants",fetch = FetchType.EAGER)
+    @ManyToMany
     private List<Cuisine> cuisines;
 
     @ManyToOne(fetch = FetchType.LAZY)
