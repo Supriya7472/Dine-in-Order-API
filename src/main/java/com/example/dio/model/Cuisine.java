@@ -1,6 +1,7 @@
 package com.example.dio.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +13,9 @@ import java.util.List;
 @Setter
 public class Cuisine {
     @Id
-    @Column(name = "cuisine")
+    @Column(name = "cuisine",unique = true)
     private String cuisine;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "cuisines",fetch = FetchType.EAGER)
     private List<Restaurant> restaurants;
 }
