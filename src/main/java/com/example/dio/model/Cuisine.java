@@ -8,7 +8,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "cuisines")
-@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 public class Cuisine {
