@@ -16,7 +16,7 @@ public class RegistrationRequest {
 
     @NotNull(message = "User name cannot be null")
     @NotBlank(message = "User name cannot be blank")
-    @Pattern(regexp = "^[a-zA-Z0-9_]$",message = "User name can only contain Alphabets,Numbers and Underscore")
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$",message = "User name can only contain Alphabets,Numbers and Underscore")
     private String userName;
 
     @NotNull(message = "email cannot be null")
@@ -31,7 +31,7 @@ public class RegistrationRequest {
 
     @NotNull(message = "Phone number cannot be null")
     @NotBlank(message = "Phone number cannot be blank")
-    @Pattern(regexp = "^[7-9]d{9}$",message = "Invalid phone number")
+    @Pattern(regexp = "^[7-9]\\d{9}$",message = "Invalid phone number")
     private String phNo;
 
     private UserRole role;
