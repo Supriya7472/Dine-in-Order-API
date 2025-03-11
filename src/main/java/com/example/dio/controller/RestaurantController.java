@@ -28,4 +28,6 @@ public class RestaurantController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ResponseStructure.create(HttpStatus.CREATED, "Restaurant created successfully", restaurantResponse));
     }
+
+
 }

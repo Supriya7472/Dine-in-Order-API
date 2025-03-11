@@ -40,27 +40,20 @@ public class RestaurantRequest {
     private List<DietType> dietType;
 
     @NotNull(message = "Opening time cannot be null")
-//    @Pattern(regexp = "HH:mm", message = "Invalid date format. Use HH:mm")
-    @Column(name = "opensAt")
     private LocalTime opensAt;
 
     @NotNull(message = "Closing time cannot be null")
-//    @Pattern(regexp = "HH:mm", message = "Invalid time format. Use HH:mm")
-    @Column(name = "closesAt")
     private LocalTime closesAt;
 
-//    @NotNull(message = "Date cannot be null")
+
     @FutureOrPresent(message = "Date must be in the present or future")
-//    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$", message = "Invalid date-time format. Use yyyy-mm-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "createdAt")
+
     private LocalDateTime createdAt;
 
-//    @NotNull(message = "Date cannot be null")
     @FutureOrPresent(message = "Date must be in the present or future")
-//    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$", message = "Invalid date-time format. Use yyyy-mm-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name="lastModifiesAt")
+
     private LocalDateTime lastModifiedAt;
 
     @NotNull(message = "Cuisine cannot be null")

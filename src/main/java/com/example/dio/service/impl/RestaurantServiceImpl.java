@@ -17,10 +17,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 @Service
 @AllArgsConstructor
@@ -31,6 +29,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     private final RestaurantMapper restaurantMapper;
     private final UserRepository userRepository;
     private final CuisineRepository cuisineRepository;
+
 
     @Override
     public RestaurantResponse createRestaurant(RestaurantRequest restaurantRequest, long userId) {
