@@ -62,7 +62,7 @@ public class Restaurant {
     @ManyToOne(fetch = FetchType.LAZY)
     private Admin admin;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "restaurant",fetch = FetchType.LAZY)
     private List<RestaurantTable> table;
 
 }
