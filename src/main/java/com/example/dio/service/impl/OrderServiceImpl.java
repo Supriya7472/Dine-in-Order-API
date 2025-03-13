@@ -4,7 +4,7 @@ import com.example.dio.dto.response.OrderResponse;
 import com.example.dio.enums.OrderStatus;
 import com.example.dio.mapper.OrderMapper;
 import com.example.dio.model.CartItem;
-import com.example.dio.model.FoodItem;
+
 import com.example.dio.model.RestaurantTable;
 import com.example.dio.model.TableOrder;
 import com.example.dio.repository.CartItemRepository;
@@ -13,8 +13,6 @@ import com.example.dio.repository.RestaurantTableRepository;
 import com.example.dio.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,6 +31,7 @@ public class OrderServiceImpl implements OrderService {
 
 
         List<CartItem> cartItems = cartItemRepository.findByIsOrderedAndRestaurantTable_TableId(false,tableId);
+
         TableOrder tableOrder = new TableOrder();
         tableOrder.setTable(table);
         tableOrder.setCartItems(cartItems);
@@ -43,6 +42,11 @@ public class OrderServiceImpl implements OrderService {
 
 
         orderRepository.save(tableOrder);
+        List<Long> cartItemIds = cartItems.stream()
+                .map(CartItem::getCartItemId)
+                .toList();
+
+        cartItemRepository.updateCartItemsIsOrdered(cartItemIds);
 
         return orderMapper.mapToOrderResponse(tableOrder);
     }
