@@ -20,14 +20,13 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 @Service
-@Getter
-@Setter
+
 @AllArgsConstructor
 public class TableServiceImpl implements RestaurantTableService {
-    private RestaurantTableRepository tableRepository;
-    private RestaurantRepository restaurantRepository;
+    private final RestaurantTableRepository tableRepository;
+    private final RestaurantRepository restaurantRepository;
 
-    private RestaurantTableMapper tableMapper;
+    private final RestaurantTableMapper tableMapper;
 
 
     @Override

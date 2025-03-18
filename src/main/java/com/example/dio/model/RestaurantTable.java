@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "tables")
+@Table(name = "restaurant_tables")
 @Getter
 @Setter
 
@@ -34,7 +34,7 @@ public class RestaurantTable {
     @OneToMany(mappedBy = "restaurantTable")
     private List<CartItem> cartItems;
 
-    @OneToMany
+    @OneToMany(mappedBy = "table")
     private List<TableOrder> orders;
 
 }

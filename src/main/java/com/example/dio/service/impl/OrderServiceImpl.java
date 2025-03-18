@@ -1,7 +1,9 @@
 package com.example.dio.service.impl;
 
+import com.example.dio.dto.response.CartItemResponse;
 import com.example.dio.dto.response.OrderResponse;
 import com.example.dio.enums.OrderStatus;
+import com.example.dio.mapper.CartItemMapper;
 import com.example.dio.mapper.OrderMapper;
 import com.example.dio.model.CartItem;
 
@@ -13,15 +15,19 @@ import com.example.dio.repository.RestaurantTableRepository;
 import com.example.dio.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
-    private RestaurantTableRepository tableRepository;
-    private OrderMapper orderMapper;
-    private OrderRepository orderRepository;
-    private CartItemRepository cartItemRepository;
+    private final RestaurantTableRepository tableRepository;
+    private final OrderMapper orderMapper;
+    private final OrderRepository orderRepository;
+    private final CartItemRepository cartItemRepository;
+    private final CartItemMapper cartItemMapper;
+
 
     @Override
     public OrderResponse createOrder(Long tableId) {
@@ -35,6 +41,8 @@ public class OrderServiceImpl implements OrderService {
         TableOrder tableOrder = new TableOrder();
         tableOrder.setTable(table);
         tableOrder.setCartItems(cartItems);
+        tableOrder.setOrderedAt(LocalTime.now());
+        tableOrder.setCartItems(cartItems);
 
         double totalAmount = calculateTotalAmount(cartItems);
         tableOrder.setTotalAmount(totalAmount);
@@ -45,6 +53,11 @@ public class OrderServiceImpl implements OrderService {
         List<Long> cartItemIds = cartItems.stream()
                 .map(CartItem::getCartItemId)
                 .toList();
+
+        List<CartItemResponse> cartItemResponses = cartItems.stream()
+                .map(cartItemMapper::mapToCartItemResponse)
+                .toList();
+
 
         cartItemRepository.updateCartItemsIsOrdered(cartItemIds);
 

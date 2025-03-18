@@ -1,10 +1,7 @@
 package com.example.dio.dto.request;
 
 import com.example.dio.enums.DietType;
-import com.example.dio.model.Restaurant;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;

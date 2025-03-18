@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class CartItemServiceImpl implements CartItemService {
-    private FoodItemRepository foodItemRepository;
-    private RestaurantTableRepository tableRepository;
-    private CartItemRepository cartItemRepository;
-    private CartItemMapper cartItemMapper;
+    private final FoodItemRepository foodItemRepository;
+    private final RestaurantTableRepository tableRepository;
+    private final CartItemRepository cartItemRepository;
+    private final CartItemMapper cartItemMapper;
 
     @Override
     public CartItemResponse createCartItem(Long foodItemId, Long tableId,int quantity) {
@@ -35,7 +35,7 @@ public class CartItemServiceImpl implements CartItemService {
         cartItem.setTotalPrice(calculateTotalPrice(foodItem,quantity));
         cartItemRepository.save(cartItem);
 
-        return cartItemMapper.mapToCartItem(cartItem);
+        return cartItemMapper.mapToCartItemResponse(cartItem);
 
 
     }
@@ -45,9 +45,10 @@ public class CartItemServiceImpl implements CartItemService {
         CartItem cartItem=cartItemRepository.findById(cartItemId)
                 .orElseThrow(()->new RuntimeException("Cart item not found with id: "+cartItemId));
         cartItemRepository.updateQuantityByCartItemId(cartItemId,newQuantity);
-        cartItem.setCartItemId(newQuantity);
+        cartItem.setQuantity(newQuantity);
+
         cartItem.setTotalPrice(calculateTotalPrice(cartItem.getFoodItem(),newQuantity));
-        return cartItemMapper.mapToCartItem(cartItem);
+        return cartItemMapper.mapToCartItemResponse(cartItem);
     }
 
     public double calculateTotalPrice(FoodItem foodItem,int quantity){

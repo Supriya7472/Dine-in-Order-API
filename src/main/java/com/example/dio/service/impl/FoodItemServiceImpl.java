@@ -21,16 +21,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class FoodItemServiceImpl implements FoodItemService {
 
-    @Autowired
-    private FoodItemRepository foodItemRepository;
-    @Autowired
-    private RestaurantRepository restaurantRepository;
-    @Autowired
-    private FoodItemMapper foodItemMapper;
-    @Autowired
-    private CuisineRepository cuisineRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
+
+    private final FoodItemRepository foodItemRepository;
+
+    private final RestaurantRepository restaurantRepository;
+    private final FoodItemMapper foodItemMapper;
+    private final CuisineRepository cuisineRepository;
+    private final CategoryRepository categoryRepository;
     @Transactional
     @Override
     public FoodItemResponse createFoodItem(Long restaurantId, FoodItemRequest foodItemRequest) {
