@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @Builder
 public class RestaurantResponse {
+    private long restaurantId;
 
     private String restaurantName;
 

@@ -33,7 +33,6 @@ public class CartItem {
     @ManyToOne
     private RestaurantTable restaurantTable;
 
-    @ManyToOne
-    private TableOrder order;
+
 
 }

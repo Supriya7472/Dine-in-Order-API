@@ -14,6 +14,9 @@ import lombok.Setter;
 @Setter
 @Builder
 public class RestaurantTableResponse {
+
+    private long tableId;
+
     private int tableNo;
 
     private int tableCapacity;

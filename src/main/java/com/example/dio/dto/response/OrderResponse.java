@@ -20,13 +20,17 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderResponse {
 
+    private Long orderId;
+
     private OrderStatus orderStatus;
 
     private LocalTime orderedAt;
 
     private double totalAmount;
 
-//    private List<CartItem> cartItems;
-//
-//    private RestaurantTable table;
+    private RestaurantTable table;
+
+    private List<CartItemResponse> cartItems;
+
+
 }

@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "foodItems",indexes = {@Index(name ="idx_foodName",columnList = "foodName")})
+@Table(name = "food_items",indexes = {@Index(name ="idx_foodName",columnList = "foodName")})
 @EntityListeners(AuditingEntityListener.class)
 public class FoodItem {
     @Id
@@ -60,5 +60,8 @@ public class FoodItem {
 
     @OneToMany(mappedBy ="foodItem" )
     private List<CartItem> cartItems;
+
+    @OneToMany(mappedBy = "foodItem")
+    private List<Image> images;
 
 }
