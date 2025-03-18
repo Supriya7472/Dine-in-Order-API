@@ -14,6 +14,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FoodItemResponse {
 
+    private long itemId;
+
     private String foodName;
 
     private double price;
@@ -25,9 +27,5 @@ public class FoodItemResponse {
     private String availability;
 
     private DietType dietType;
-
-
-
-
 
 }
