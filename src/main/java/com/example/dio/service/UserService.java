@@ -19,17 +19,17 @@ public interface UserService {
     /**
      * This service fetches user data using user id
      *
-     * @param userId specifies user id
+//     * @param userEmail specifies user id
      *
      * @return UserResponse
      * */
-    public UserResponse findUserById(long userId);
+    public UserResponse findUserByEmail();
 
     /**
      * this service updates existing users
      *
-     * @param userId specifies user id
+
      * @param userRequest specifies userRequest of type UserRequest
      * */
-    public UserResponse updateUserById(UserRequest userRequest, long userId);
+    public UserResponse updateUserByEmail(UserRequest userRequest);
 }
