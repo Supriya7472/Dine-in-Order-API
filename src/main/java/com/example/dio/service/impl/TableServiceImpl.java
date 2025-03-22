@@ -13,6 +13,7 @@ import com.example.dio.repository.RestaurantRepository;
 
 import com.example.dio.repository.RestaurantTableRepository;
 import com.example.dio.repository.UserRepository;
+import com.example.dio.security.util.UserIdentity;
 import com.example.dio.service.RestaurantTableService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class TableServiceImpl implements RestaurantTableService {
     private final RestaurantRepository restaurantRepository;
 
     private final RestaurantTableMapper tableMapper;
+    private final UserIdentity userIdentity;
 
 
     @Override
@@ -48,6 +50,23 @@ public class TableServiceImpl implements RestaurantTableService {
         // Save and return the table
         tableRepository.save(table);
         return tableMapper.mapToTableResponse(table);
+    }
+
+    @Override
+    public RestaurantTableResponse getTableById(Long tableId) {
+        RestaurantTable table=tableRepository.findById(tableId)
+                .orElseThrow(()-> new RuntimeException("Table not found with id : "+tableId));
+        return tableMapper.mapToTableResponse(table);
+    }
+
+    @Override
+    public RestaurantTableResponse updateTableById(Long tableId,RestaurantTableRequest tableRequest) {
+        RestaurantTable exTable=tableRepository.findById(tableId)
+                .orElseThrow(()-> new RuntimeException("Table not found with id : "+tableId));
+        userIdentity.validateOwnerShip(exTable.getCreatedBy());
+        tableMapper.mapToNewTable(tableRequest,exTable);
+        tableRepository.save(exTable);
+        return tableMapper.mapToTableResponse(exTable);
     }
 
     // Method to generate the next table number

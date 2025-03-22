@@ -7,9 +7,11 @@ import com.example.dio.dto.response.RestaurantTableResponse;
 import com.example.dio.model.RestaurantTable;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel ="spring")
 public interface RestaurantTableMapper {
     RestaurantTable mapToTable(RestaurantTableRequest restaurantTableRequest);
     RestaurantTableResponse mapToTableResponse(RestaurantTable restaurantTable);
+    void mapToNewTable(RestaurantTableRequest restaurantTableRequest, @MappingTarget RestaurantTable exTable);
 }

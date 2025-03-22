@@ -1,16 +1,18 @@
 package com.example.dio.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.List;
 
 @Entity
 @Table(name="staffs")
+@EntityListeners(AuditingEntityListener.class)
 public class Staff extends User{
-//    @ManyToMany(mappedBy = "table",fetch = FetchType.EAGER)
-//    private List<com.example.dio.model.Table> table;
+
+    @CreatedBy
+    @Column(name = "createdBy")
+    private String createdBy;
 
 }

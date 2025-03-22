@@ -1,5 +1,7 @@
 package com.example.dio.dto.request;
 
+import com.example.dio.dto.rules.Email;
+import com.example.dio.dto.rules.OnlyAlphabetsAndSpace;
 import com.example.dio.enums.DietType;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
@@ -15,9 +17,7 @@ import java.util.List;
 @Setter
 public class RestaurantRequest {
 
-    @NotNull
-    @NotBlank
-    @Pattern(regexp = "^[A-Za-z]+$")
+    @OnlyAlphabetsAndSpace
     private String restaurantName;
 
     @NotNull
@@ -30,9 +30,8 @@ public class RestaurantRequest {
     @Pattern(regexp = "^[6-9]\\d{9}$",message = "Invalid phone number")
     private String phNo;
 
-    @NotNull(message = "email cannot be null")
-    @NotBlank(message = "email cannot be blank")
-    @Email(regexp = "^[A-Za-z0-9._%+-]+@gmail\\.com$",message = "Enter valid email id")
+
+    @Email
     private String email;
 
     @NotNull(message = "Diet type cannot be null")

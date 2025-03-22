@@ -4,4 +4,6 @@ import com.example.dio.dto.response.OrderResponse;
 
 public interface OrderService {
     OrderResponse createOrder(Long tableId);
+
+    OrderResponse getOrderById(Long orderId);
 }

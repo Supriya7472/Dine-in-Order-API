@@ -10,8 +10,10 @@ import com.example.dio.model.Admin;
 import com.example.dio.model.Staff;
 import com.example.dio.model.User;
 import com.example.dio.repository.UserRepository;
+import com.example.dio.security.util.UserIdentity;
 import com.example.dio.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,12 +21,20 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
+    private final UserIdentity userIdentity;
 
     public UserResponse registerUser(RegistrationRequest registrationRequest){
         User child=this.createUserByRole(registrationRequest.getRole());
         userMapper.mapToNewUser(registrationRequest,child);
-        User user=userRepository.save(child);
-        return userMapper.mapToUserResponse(user);
+        this.encryptPassword(child);
+        userRepository.save(child);
+        return userMapper.mapToUserResponse(child);
+    }
+
+    private void encryptPassword(User user){
+        String encodedPassword=passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
     }
 
 
@@ -49,22 +59,21 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserResponse findUserById(long userId) {
+    public UserResponse findUserByEmail() {
 
-        return userRepository.findById(userId)
-                .map(userMapper::mapToUserResponse)
-                .orElseThrow(()->new UserNotFoundByIdException("Failed to find user, User not found by id"));
+        User user =userIdentity.getCurrentUser();
+        return userMapper.mapToUserResponse(user);
 
     }
 
 
     @Override
-    public UserResponse updateUserById(UserRequest userRequest, long userId) {
+    public UserResponse updateUserByEmail(UserRequest userRequest) {
 
-        User exUser=userRepository.findById(userId)
-                .orElseThrow(()->new UserNotFoundByIdException("Failed to update user, user not found by Id"));
+        User exUser=userIdentity.getCurrentUser();
+        userIdentity.validateOwnerShip(exUser.getEmail());
         userMapper.mapToNewUser(userRequest,exUser);
-
-        return userMapper.mapToUserResponse(userRepository.save(exUser));
+        userRepository.save(exUser);
+        return userMapper.mapToUserResponse(exUser);
     }
 }

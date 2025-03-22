@@ -6,6 +6,7 @@ import jakarta.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -55,6 +56,10 @@ public class Restaurant {
     @LastModifiedDate
     @Column(name="lastModifiesAt")
     private LocalDateTime lastModifiedAt;
+
+    @CreatedBy
+    @Column(name = "createdBy")
+    private String createdBy;
 
     @ManyToMany
     private List<Cuisine> cuisines;

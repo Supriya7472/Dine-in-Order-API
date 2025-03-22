@@ -5,6 +5,7 @@ import com.example.dio.dto.request.UserRequest;
 import com.example.dio.dto.response.UserResponse;
 import com.example.dio.exception.handler.UserExceptionHandler;
 import com.example.dio.exception.handler.UserNotFoundByIdException;
+import com.example.dio.security.util.UserIdentity;
 import com.example.dio.service.UserService;
 import com.example.dio.util.FieldErrorResponse;
 import com.example.dio.util.ResponseBuilder;
@@ -19,6 +20,7 @@ import jdk.jshell.spi.ExecutionControl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("${app.base-url}")
 public class UserController {
     private final UserService userService;
+
 
     //User registration API
     @Operation(description = """
@@ -58,9 +61,9 @@ public class UserController {
                     }),
                     @ApiResponse(responseCode = "400",description = "Bad Request-Missing required fields"),
             })
-    @GetMapping("/users/{userId}")
-    public ResponseEntity<ResponseStructure<UserResponse>> findUserById(@PathVariable long userId){
-        UserResponse userResponse=userService.findUserById(userId);
+    @GetMapping("/account")
+    public ResponseEntity<ResponseStructure<UserResponse>> findUserByEmail(){
+        UserResponse userResponse=userService.findUserByEmail();
         return ResponseBuilder.ok("User Found", userResponse);
     }
 
@@ -75,9 +78,9 @@ public class UserController {
                     @Content(schema = @Schema(implementation = FieldErrorResponse.class))
             })
     })
-    @PutMapping("/users/{userId}")
-    public ResponseEntity<ResponseStructure<UserResponse>> updateUserById(@RequestBody @Valid UserRequest userRequest, @PathVariable long userId){
-        UserResponse userResponse=userService.updateUserById(userRequest,userId);
+    @PutMapping("/users")
+    public ResponseEntity<ResponseStructure<UserResponse>> updateUserByEmail(@RequestBody @Valid UserRequest userRequest){
+        UserResponse userResponse=userService.updateUserByEmail(userRequest);
         return ResponseBuilder.ok("User Updated",userResponse);
     }
 

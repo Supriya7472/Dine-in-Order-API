@@ -64,6 +64,13 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.mapToOrderResponse(tableOrder);
     }
 
+    @Override
+    public OrderResponse getOrderById(Long orderId) {
+        TableOrder tableOrder=orderRepository.findById(orderId)
+                .orElseThrow(()-> new RuntimeException("Order Not Found"));
+        return orderMapper.mapToOrderResponse(tableOrder);
+    }
+
     public double calculateTotalAmount(List<CartItem> cartItems) {
         double totalAmount = 0;
         for (CartItem c : cartItems) {

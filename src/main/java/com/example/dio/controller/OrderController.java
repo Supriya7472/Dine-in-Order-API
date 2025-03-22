@@ -15,11 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping("${app.base-url}")
 public class OrderController {
+
     private OrderService orderService;
-    @PostMapping("/orders/tables/{tableId}")
+    @PostMapping("/tables/{tableId}/orders")
     public ResponseEntity<ResponseStructure<OrderResponse>> createOrder(@PathVariable Long tableId){
         OrderResponse orderResponse=orderService.createOrder(tableId);
         return ResponseBuilder.created("Order created ",orderResponse);
     }
+
+    @PostMapping("/orders/{orderId}")
+    public ResponseEntity<ResponseStructure<OrderResponse>> getOrderById(@PathVariable Long orderId){
+        OrderResponse orderResponse=orderService.getOrderById(orderId);
+        return ResponseBuilder.found("Order details found ",orderResponse);
+    }
+
 
 }

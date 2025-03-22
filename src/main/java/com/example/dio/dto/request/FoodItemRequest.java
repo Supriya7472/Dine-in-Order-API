@@ -1,5 +1,6 @@
 package com.example.dio.dto.request;
 
+import com.example.dio.dto.rules.OnlyAlphabetsAndSpace;
 import com.example.dio.enums.DietType;
 
 import jakarta.validation.constraints.*;
@@ -14,8 +15,7 @@ import java.util.List;
 public class FoodItemRequest {
 
 
-    @NotBlank(message = "Food name cannot be empty")
-    @Size(max = 100, message = "Food name must be at most 100 characters")
+    @OnlyAlphabetsAndSpace
     private String foodName;
 
     @Positive(message = "Price must be greater than zero")
