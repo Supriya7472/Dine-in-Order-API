@@ -15,4 +15,9 @@ public class UserExceptionHandler {
     public ResponseEntity<SimpleErrorResponse> handleUserNotFoundByIdException(UserNotFoundByIdException ex){
         return ResponseBuilder.notFound(ex.getMessage());
     }
+
+    @ExceptionHandler(IllegalActivityException.class)
+    public ResponseEntity<SimpleErrorResponse> handleIllegalActivityException(IllegalActivityException ex){
+        return ResponseBuilder.forbidden(ex.getMessage());
+    }
 }
