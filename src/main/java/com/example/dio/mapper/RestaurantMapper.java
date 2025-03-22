@@ -5,6 +5,7 @@ import com.example.dio.dto.response.RestaurantResponse;
 import com.example.dio.model.Cuisine;
 import com.example.dio.model.Restaurant;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel ="spring")
 public interface RestaurantMapper {
@@ -26,6 +27,7 @@ public interface RestaurantMapper {
      * */
     RestaurantResponse mapToRestaurantResponse(Restaurant restaurant);
 
+    void mapToNewRestaurant(RestaurantRequest restaurantRequest, @MappingTarget Restaurant restaurant);
 
     /**
      * Helps with mapping cuisine type data to String

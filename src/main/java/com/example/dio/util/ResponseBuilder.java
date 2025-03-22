@@ -56,6 +56,10 @@ public class ResponseBuilder {
     }
 
 
+    public static <T>ResponseEntity<ResponseStructure<T>> found(String message, T data){
+        return success(HttpStatus.FOUND,message,data);
+    }
+
     /**
      * Helps creating the success responses with data including
      * the HttpStatus code, message and the data itself.

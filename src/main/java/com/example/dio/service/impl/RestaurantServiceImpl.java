@@ -12,8 +12,10 @@ import com.example.dio.model.User;
 import com.example.dio.repository.CuisineRepository;
 import com.example.dio.repository.RestaurantRepository;
 import com.example.dio.repository.UserRepository;
+import com.example.dio.security.util.UserIdentity;
 import com.example.dio.service.RestaurantService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +31,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     private final RestaurantMapper restaurantMapper;
     private final UserRepository userRepository;
     private final CuisineRepository cuisineRepository;
+    private final UserIdentity userIdentity;
 
 
     @Override
@@ -54,6 +57,24 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         // Map to response
         return restaurantMapper.mapToRestaurantResponse(restaurant);
+    }
+
+    @Override
+    public RestaurantResponse findRestaurantById(Long restaurantId) {
+        Restaurant restaurant=restaurantRepository.findById(restaurantId)
+                .orElseThrow(()-> new RuntimeException("Restaurant not found with id:"+restaurantId));
+        return restaurantMapper.mapToRestaurantResponse(restaurant);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @Override
+    public RestaurantResponse updateRestaurantById(Long restaurantId, RestaurantRequest restaurantRequest) {
+        Restaurant exRestaurant =restaurantRepository.findById(restaurantId)
+                .orElseThrow(()-> new RuntimeException("Restaurant not found with id:"+restaurantId));
+        userIdentity.validateOwnerShip(exRestaurant.getCreatedBy());
+        restaurantMapper.mapToNewRestaurant(restaurantRequest,exRestaurant);
+        restaurantRepository.save(exRestaurant);
+        return restaurantMapper.mapToRestaurantResponse(exRestaurant);
     }
 
     private List<Cuisine> createNonExistingCuisine(List<Cuisine> cuisineType){

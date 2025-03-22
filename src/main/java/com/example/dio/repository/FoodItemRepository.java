@@ -1,6 +1,7 @@
 package com.example.dio.repository;
 
 import com.example.dio.model.FoodItem;
+import com.example.dio.model.Image;
 import com.example.dio.model.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +22,8 @@ public interface FoodItemRepository extends JpaRepository<FoodItem,Long> {
 
     @Query("Select restaurant from FoodItem where itemId= :itemId")
     Restaurant findRestaurant_RestaurantNameByItemId(@Param("itemId") long itemId);
+
+    List<FoodItem> findAllByRestaurant_RestaurantId(Long restaurantId);
+
+
 }

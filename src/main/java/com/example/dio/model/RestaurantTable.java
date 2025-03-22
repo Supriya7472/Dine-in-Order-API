@@ -4,6 +4,8 @@ import com.example.dio.enums.RestaurantTableStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
 @Table(name = "restaurant_tables")
 @Getter
 @Setter
-
+@EntityListeners(AuditingEntityListener.class)
 public class RestaurantTable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -28,13 +30,17 @@ public class RestaurantTable {
     @Column(name = "tableStatus")
     private RestaurantTableStatus tableStatus;
 
+    @CreatedBy
+    @Column(name = "createdBy")
+    private String createdBy;
+
     @ManyToOne
     private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "restaurantTable")
+    @OneToMany(mappedBy = "restaurantTable",fetch = FetchType.LAZY)
     private List<CartItem> cartItems;
 
-    @OneToMany(mappedBy = "table")
+    @OneToMany(mappedBy = "table",fetch = FetchType.LAZY)
     private List<TableOrder> orders;
 
 }

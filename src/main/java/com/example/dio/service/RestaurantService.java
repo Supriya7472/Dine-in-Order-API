@@ -7,4 +7,8 @@ import org.springframework.http.ResponseEntity;
 
 public interface RestaurantService {
     RestaurantResponse createRestaurant(RestaurantRequest restaurantRequest,long userId);
+
+    RestaurantResponse findRestaurantById(Long restaurantId);
+
+    RestaurantResponse updateRestaurantById(Long restaurantId, RestaurantRequest restaurantRequest);
 }

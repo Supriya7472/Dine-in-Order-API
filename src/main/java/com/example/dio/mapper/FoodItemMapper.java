@@ -5,8 +5,10 @@ import com.example.dio.dto.response.FoodItemResponse;
 import com.example.dio.model.Category;
 import com.example.dio.model.Cuisine;
 import com.example.dio.model.FoodItem;
+import com.example.dio.model.Image;
 import com.example.dio.repository.CuisineRepository;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +20,7 @@ public interface FoodItemMapper {
 
     FoodItemResponse mapToFoodItemResponse(FoodItem foodItem);
 
+    void mapToNewFoodItem(FoodItemRequest foodItemRequest, @MappingTarget FoodItem exFooditem );
 
     default Cuisine mapToCuisineType(String cuisine){
         Cuisine newCuisine = new Cuisine();
@@ -48,6 +51,15 @@ public interface FoodItemMapper {
 
         return categories.stream()
                 .map(this::mapToCategory)
+                .collect(Collectors.toList());
+    }
+
+    default List<String> mapImagesToUrls(List<Image> images) {
+        if (images == null || images.isEmpty()) {
+            return null;
+        }
+        return images.stream()
+                .map(Image::getImageUrl)
                 .collect(Collectors.toList());
     }
 }
