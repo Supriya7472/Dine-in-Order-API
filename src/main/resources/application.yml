@@ -18,9 +18,18 @@ server:
 app:
   base-url: /api/v1
   cloudinary:
-   cloud-name: dtbp9cnvj
-   api-key: 475931139223847
-   api-secret: 0vIGeqOnmT0HLFEcNaqGs9-4n1Y
+    cloud-name: dtbp9cnvj
+    api-key: 475931139223847
+    api-secret: 0vIGeqOnmT0HLFEcNaqGs9-4n1Y
+  security:
+    token-validity:
+      access-validity: 3600
+      refresh-validity: 3600
+    secret: ${SECURITY_SECRET};
+  domain:
+    name: ${DOMAIN_NAME}
+    secure: ${DOMAIN_SECURE}
+    same-site: ${DOMAIN_SAME_SITE}
 
 #spring.application.name=dine-in-api
 ##DATASOURCE CONFIGURATION
