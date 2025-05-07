@@ -2,7 +2,6 @@
 
 A RESTful backend service built using **Spring Boot** for managing dine-in restaurant operations such as menu, table booking, and order management — all secured with JWT authentication.
 
----
 
 
 ## 🚀 Features
@@ -14,7 +13,7 @@ A RESTful backend service built using **Spring Boot** for managing dine-in resta
 - ✅ Table management and reservations
 - ✅ Swagger UI for testing endpoints
 
----
+
 
 ## 🛠️ Tech Stack
 
@@ -26,7 +25,7 @@ A RESTful backend service built using **Spring Boot** for managing dine-in resta
 | **API Test** | Swagger UI, Postman                        |
 | **Auth**     | JWT (Access + Refresh Tokens)              |
 
----
+
 
 ## ⚙️ Getting Started
 
@@ -65,21 +64,15 @@ A RESTful backend service built using **Spring Boot** for managing dine-in resta
 
 
 ⚠️ Secured endpoints require a valid JWT token in the Authorization header:
-Authorization: Bearer <token>
+## 👩‍💻 Developed By
 
-👩‍💻 Author
-Supriya – Java Full Stack Developer
-GitHub: @Supriya7472
+**Supriya** — Java Full Stack Developer  
+GitHub: [Supriya7472](https://github.com/Supriya7472)
 
-📄 License
-This project is open-sourced under the MIT License.
-Authorization: Bearer <token>
 
-👩‍💻 Author
-Supriya – Java Full Stack Developer
-GitHub: @Supriya7472
 
-📄 License
-This project is open-sourced under the MIT License.
+## 📄 License
+
+This project is open-source and available under the MIT License.
 
 
